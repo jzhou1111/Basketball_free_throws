@@ -36,7 +36,6 @@ KevinDurant_FTA = [256,256,448,524,840,675,501,750,805,171]
 DerrickRose_FTA = [205,205,205,250,338,555,239,0,32,187]
 DwayneWade_FTA = [803,535,467,771,702,652,297,425,258,370]
 
-
 Free_Throws_Attempts = np.array([KobeBryant_FTA,JoeJohnson_FTA,LeBronJames_FTA,CarmeloAnthony_FTA,DwightHoward_FTA,ChrisBosh_FTA,ChrisPaul_FTA,KevinDurant_FTA,DerrickRose_FTA,DwayneWade_FTA])
 
 #Games 
@@ -50,7 +49,7 @@ ChrisPaul_G = [78,64,80,78,45,80,60,70,62,82]
 KevinDurant_G = [35,35,80,74,82,78,66,81,81,27]
 DerrickRose_G = [40,40,40,81,78,81,39,0,10,51]
 DwayneWade_G = [75,51,51,79,77,76,49,69,54,62]
-#Matrix
+
 Games = np.array([KobeBryant_G, JoeJohnson_G, LeBronJames_G, CarmeloAnthony_G, DwightHoward_G, ChrisBosh_G, ChrisPaul_G, KevinDurant_G, DerrickRose_G, DwayneWade_G])
 
 #Points
@@ -64,7 +63,7 @@ ChrisPaul_PTS = [1258,1104,1684,1781,841,1268,1189,1186,1185,1564]
 KevinDurant_PTS = [903,903,1624,1871,2472,2161,1850,2280,2593,686]
 DerrickRose_PTS = [597,597,597,1361,1619,2026,852,0,159,904]
 DwayneWade_PTS = [2040,1397,1254,2386,2045,1941,1082,1463,1028,1331]
-#Matrix
+#
 Points = np.array([KobeBryant_PTS, JoeJohnson_PTS, LeBronJames_PTS, CarmeloAnthony_PTS, DwightHoward_PTS, ChrisBosh_PTS, ChrisPaul_PTS, KevinDurant_PTS, DerrickRose_PTS, DwayneWade_PTS])
 
 #Field Goals
@@ -78,13 +77,14 @@ ChrisPaul_FG = [407,381,630,631,314,430,425,412,406,568]
 KevinDurant_FG = [306,306,587,661,794,711,643,731,849,238]
 DerrickRose_FG = [208,208,208,574,672,711,302,0,58,338]
 DwayneWade_FG = [699,472,439,854,719,692,416,569,415,509]
-#Matrix
+#
 FieldGoals  = np.array([KobeBryant_FG, JoeJohnson_FG, LeBronJames_FG, CarmeloAnthony_FG, DwightHoward_FG, ChrisBosh_FG, ChrisPaul_FG, KevinDurant_FG, DerrickRose_FG, DwayneWade_FG])
+
 
 print(Games)
 
 import warnings
-warnings.filterwarnings('ignore') #due to dividing by 0
+warnings.filterwarnings('ignore') #Dividing by 0
 FTA_Per_Game = np.matrix.round(Free_Throws_Attempts / Games,4)
 
 print(FTA_Per_Game)
@@ -94,6 +94,8 @@ print(FT_Acc)
 
 Point_Diff = (Points-Free_Throws)/FieldGoals
 print(Point_Diff)
+
+Sdict["2012"]
 
 import matplotlib.pyplot as plt
 
@@ -119,6 +121,7 @@ plt.legend(loc = 'upper left', bbox_to_anchor = (1,1))
 plt.xticks(list(range(0,10)), Seasons, rotation = 'vertical')
 plt.show()
 
+
 def myplot(data, playerlist = Players):
     col = {"KobeBryant":"Black","JoeJohnson":"Yellow","LeBronJames":"Red","CarmeloAnthony":"Blue","DwightHoward":"Green","ChrisBosh":"Pink","ChrisPaul":"Purple","KevinDurant":"Orange","DerrickRose":"Brown","DwayneWade":"Magenta"}
     mark = {"KobeBryant":"s","JoeJohnson":"o","LeBronJames":"^","CarmeloAnthony":"D","DwightHoward":"s","ChrisBosh":"o","ChrisPaul":"^","KevinDurant":"D","DerrickRose":"s","DwayneWade":"o"}
@@ -126,5 +129,21 @@ def myplot(data, playerlist = Players):
         plt.plot(data[Pdict[name]], c = col[name], ls = '--', marker = mark[name], ms = "7", label = name)
     plt.legend(loc = 'upper left', bbox_to_anchor = (1,1))        
     plt.xticks(list(range(0,10)), Seasons, rotation = 'vertical')
+    plt.xlabel("Seasons")
     plt.show()
+
+plt.title("Free Throws")
+plt.ylabel("Number of Free Throws")
 myplot(Free_Throws)
+
+plt.title("Free Throws Attempts")
+plt.ylabel("Free Throws Attempts Per Game")
+myplot(FTA_Per_Game)
+
+plt.title("2 vs 3 Points Preference")
+plt.ylabel("Points")
+myplot(Point_Diff)
+
+plt.title("Accuracy of Free Throws")
+plt.ylabel("Free Throw Percentage")
+myplot(FT_Acc)
